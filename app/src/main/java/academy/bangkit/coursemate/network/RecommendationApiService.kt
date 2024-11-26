@@ -7,6 +7,6 @@ import retrofit2.http.Body
 import retrofit2.http.POST
 
 interface RecommendationApiService {
-    @POST("/api/recommend")
+    @POST("api/recommend")
     fun getRecommendations(@Body request: RecommendationRequest): Call<RecommendationResponse>
 }
