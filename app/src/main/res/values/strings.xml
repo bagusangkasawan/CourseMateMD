@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">CourseMate</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+
+    <string-array name="interest_options">
+        <item>Select Your Interest</item>
+        <item>Finance</item>
+        <item>Data Analysis</item>
+        <item>Machine Learning</item>
+        <item>Algorithms</item>
+    </string-array>
+
+    <string-array name="course_type_options">
+        <item>Select Course Type</item>
+        <item>Course</item>
+        <item>Specialization</item>
+        <item>Professional Certificate</item>
+        <item>Project</item>
+    </string-array>
+
+    <string-array name="duration_options">
+        <item>Select Max Duration (In Weeks)</item>
+        <item>4</item>
+        <item>8</item>
+        <item>16</item>
+    </string-array>
+</resources>
