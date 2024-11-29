@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import academy.bangkit.coursemate.R
 import academy.bangkit.coursemate.databinding.FragmentHomeBinding
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.NavOptions
 
 class HomeFragment : Fragment() {
 
@@ -36,4 +37,3 @@ class HomeFragment : Fragment() {
         _binding = null
     }
 }
-

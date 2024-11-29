@@ -39,7 +39,6 @@ class DashboardFragment : Fragment() {
 
         courseList.layoutManager = LinearLayoutManager(requireContext())
 
-        // Setup adapters for Spinners
         setupSpinner(interestSpinner, R.array.interest_options)
         setupSpinner(courseTypeSpinner, R.array.course_type_options)
         setupSpinner(durationSpinner, R.array.duration_options)
@@ -49,7 +48,6 @@ class DashboardFragment : Fragment() {
             val courseType = courseTypeSpinner.selectedItem.toString()
             val duration = durationSpinner.selectedItem.toString()
 
-            // Validate that the user has selected a valid option, not the default
             if (interest == "Select Your Interest" || courseType == "Select Course Type" || duration == "Select Max Duration (In Weeks)") {
                 Toast.makeText(requireContext(), "Please select all options correctly.", Toast.LENGTH_SHORT).show()
             } else {
