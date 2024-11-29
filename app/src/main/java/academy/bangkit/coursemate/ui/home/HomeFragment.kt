@@ -28,7 +28,11 @@ class HomeFragment : Fragment() {
 
         binding.buttonGoToDashboard.setOnClickListener {
             val navController = findNavController()
-            navController.navigate(R.id.navigation_dashboard)
+            val navOptions = NavOptions.Builder()
+                .setLaunchSingleTop(true)
+                .setPopUpTo(R.id.navigation_home, true)
+                .build()
+            navController.navigate(R.id.navigation_dashboard, null, navOptions)
         }
     }
 

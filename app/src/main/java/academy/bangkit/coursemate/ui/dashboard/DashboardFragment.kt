@@ -35,13 +35,15 @@ class DashboardFragment : Fragment() {
         errorText = root.findViewById(R.id.text_error)
         predictedCategoryText = root.findViewById(R.id.text_predicted_category)
 
-        viewModel = ViewModelProvider(this).get(DashboardViewModel::class.java)
+        viewModel = ViewModelProvider(this)[DashboardViewModel::class.java]
 
         courseList.layoutManager = LinearLayoutManager(requireContext())
 
         setupSpinner(interestSpinner, R.array.interest_options)
         setupSpinner(courseTypeSpinner, R.array.course_type_options)
         setupSpinner(durationSpinner, R.array.duration_options)
+
+        observeViewModel()
 
         submitButton.setOnClickListener {
             val interest = interestSpinner.selectedItem.toString()
@@ -76,20 +78,30 @@ class DashboardFragment : Fragment() {
 
         viewModel.getRecommendations(request).observe(viewLifecycleOwner) { result ->
             progressBar.visibility = View.GONE
-            if (result.isSuccess) {
-                val response = result.getOrNull()
-                if (response != null) {
-                    predictedCategoryText.text = "Predicted Category: ${response.predicted_category}"
-                    predictedCategoryText.visibility = View.VISIBLE
-                    courseList.adapter = CourseAdapter(response.recommended_courses)
-                } else {
-                    errorText.text = "No courses found."
-                    errorText.visibility = View.VISIBLE
-                }
-            } else {
+            result.onSuccess { response ->
+                viewModel.setPredictedCategory(response.predicted_category)
+                viewModel.setSavedCourses(response.recommended_courses)
+                courseList.adapter = CourseAdapter(response.recommended_courses)
+            }.onFailure {
                 errorText.text = "Failed to load recommendations."
                 errorText.visibility = View.VISIBLE
             }
         }
     }
+
+    private fun observeViewModel() {
+        viewModel.savedCourses.observe(viewLifecycleOwner) { courses ->
+            if (courses.isNotEmpty()) {
+                courseList.adapter = CourseAdapter(courses)
+            }
+        }
+
+        viewModel.predictedCategory.observe(viewLifecycleOwner) { category ->
+            if (category.isNotEmpty()) {
+                predictedCategoryText.visibility = View.VISIBLE
+                predictedCategoryText.text = "Predicted Category: $category"
+            }
+        }
+    }
 }
+
